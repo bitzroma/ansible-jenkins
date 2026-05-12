@@ -1,6 +1,7 @@
 ---
 - name: Installer Nginx sur Ubuntu
   hosts: all
+  remote_user: root
   become: yes
 
   tasks:
