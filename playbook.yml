@@ -1,5 +1,26 @@
-- name: install nginx
+---
+- name: Installer Nginx sur Ubuntu
   hosts: all
   become: yes
-  roles:
-    - nginx
+
+  tasks:
+    - name: Mettre à jour le cache APT
+      apt:
+        update_cache: yes
+
+    - name: Installer nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Démarrer et activer nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Autoriser Nginx dans UFW
+      ufw:
+        rule: allow
+        name: 'Nginx Full'
+      ignore_errors: yes
